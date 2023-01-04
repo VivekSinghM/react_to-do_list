@@ -9,7 +9,6 @@ import AddItems from "./addItems/AddItems";
 function Home() {
   return (
     <Container maxWidth="md">
-      <header>
         <Grid2 container direction="column">
           <Grid2>
             <Typography variant="h1" gutterBottom>
@@ -21,7 +20,6 @@ function Home() {
             <ToDoItems/>
           </Grid2>
         </Grid2>
-      </header>
     </Container>
   );
 }
