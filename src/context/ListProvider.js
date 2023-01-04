@@ -1,17 +1,11 @@
 import { createContext, useEffect, useState } from "react";
 
-const inisitialdata = [
-  { completed: false, name: "test 1" },
-  { completed: false, name: "test 2" },
-  { completed: false, name: "test 3" },
-  { completed: false, name: "test 4" },
-];
 
 export const ListContext = createContext();
 const powerToDoList = "powerToDoList";
 
 const ListProvider = (props) => {
-  const [toDoList, setToDoList] = useState();
+  const [toDoList, setToDoList] = useState([]);
 
   useEffect(() => {
     if (!!localStorage.getItem(powerToDoList)) {
