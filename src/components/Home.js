@@ -7,19 +7,18 @@ import AddItems from "./addItems/AddItems";
 
 
 function Home() {
-    
   return (
     <Container maxWidth="md">
       <header>
         <Grid2 container direction="column">
           <Grid2>
             <Typography variant="h1" gutterBottom>
-              React TODO
+              React ToDo
             </Typography>
           </Grid2>
-          <AddItems></AddItems>
+          <AddItems/>
           <Grid2>
-            <ToDoItems></ToDoItems>
+            <ToDoItems/>
           </Grid2>
         </Grid2>
       </header>

@@ -1,25 +1,55 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
+
+const inisitialdata = [
+  { completed: false, name: "test 1" },
+  { completed: false, name: "test 2" },
+  { completed: false, name: "test 3" },
+  { completed: false, name: "test 4" },
+];
 
 export const ListContext = createContext();
+const powerToDoList = "powerToDoList";
 
 const ListProvider = (props) => {
-  const [toDoList, setToDoList] = useState([]);
+  const [toDoList, setToDoList] = useState();
+
+  useEffect(() => {
+    if (!!localStorage.getItem(powerToDoList)) {
+      const temp = JSON.parse(localStorage.getItem(powerToDoList));
+      setToDoList(temp);
+    }
+  }, []);
+
   const addTask = (task) => {
-    setToDoList([...toDoList, task]);
+    const tempList = [...toDoList, task];
+    updateList(tempList);
   };
-  const addAllTask = (tasks) => {
-    setToDoList([...toDoList, ...tasks]);
+
+  const setCompledted = (id) => {
+    const tempList = [...toDoList];
+    tempList[id].completed = !tempList[id].completed;
+
+    updateList(tempList);
   };
+
   const removeTask = (id) => {
     const tempList = [...toDoList];
     tempList.splice(id, 1);
-    setToDoList(tempList);
+    updateList(tempList);
   };
+
+  const updateList = (data) => {
+    setToDoList(data);
+    localStorage.setItem(powerToDoList, JSON.stringify(data));
+  };
+
   return (
-    <ListContext.Provider value={(toDoList, addAllTask, addTask, removeTask)}>
+    <ListContext.Provider
+      value={{ toDoList, addTask, setCompledted, removeTask }}
+    >
       {props.children}
     </ListContext.Provider>
   );
 };
 
-export default ListProvider
+export default ListProvider;
